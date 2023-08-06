@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use Throwable;
-use App\Models\Specialist;
 use Illuminate\Http\Request;
+use App\Models\SubSpecialist;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
-class SpecialistController extends Controller
+class SubSpecialistController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +18,12 @@ class SpecialistController extends Controller
     public function index()
     {
         if (request()->type == 'datatable') {
-            $data = Specialist::orderBy('name', 'ASC')->get();
+            $data = SubSpecialist::orderBy('name', 'ASC')->get();
 
             return datatables()->of($data)
                 ->addColumn('action', function ($data) {
-                    $editRoute       = 'admin.specialists.edit';
-                    $deleteRoute     = 'admin.specialists.destroy';
+                    $editRoute       = 'admin.sub-specialists.edit';
+                    $deleteRoute     = 'admin.sub-specialists.destroy';
                     $dataId          = Crypt::encryptString($data->id);
                     $dataDeleteLabel = $data->name;
 
@@ -48,8 +48,8 @@ class SpecialistController extends Controller
                 ->make(true);
         }
 
-        return view('admin.modules.specialist.index', [
-            'breadcrumb' => 'Specialists'
+        return view('admin.modules.subSpecialist.index', [
+            'breadcrumb' => 'Sub Specialists'
         ]);
     }
 
@@ -69,7 +69,7 @@ class SpecialistController extends Controller
         $validator = Validator::make([
             'name'      => $request->name,
         ], [
-            'name'      => 'required|max:255|min:3|unique:specialists,name,NULL,id,deleted_at,NULL',
+            'name'      => 'required|max:255|min:3|unique:sub_specialists,name,NULL,id,deleted_at,NULL',
         ]);
 
         if ($validator->fails()) {
@@ -80,13 +80,13 @@ class SpecialistController extends Controller
         } else {
             DB::beginTransaction();
             try {
-                Specialist::create([
-                    'name'      => $request->name
+                SubSpecialist::create([
+                    'name'      => $request->name,
                 ]);
                 DB::commit();
                 return response()->json([
                     'status'  => 200,
-                    'message' => 'Specialist name has been success to created',
+                    'message' => 'Sub Specialist has been success to created',
                 ], 200);
             } catch (Throwable $th) {
                 DB::rollBack();
@@ -101,7 +101,7 @@ class SpecialistController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Specialist $specialist)
+    public function show(SubSpecialist $subSpecialist)
     {
         //
     }
@@ -113,7 +113,7 @@ class SpecialistController extends Controller
     {
         try {
             $id = Crypt::decryptString($id);
-            $data = Specialist::find($id);
+            $data = SubSpecialist::find($id);
 
             if ($data) {
                 return response()->json([
@@ -123,7 +123,7 @@ class SpecialistController extends Controller
             } else {
                 return response()->json([
                     'status' => 404,
-                    'message' => 'Specialist name Not Found',
+                    'message' => 'Sub Specialist Not Found',
                 ]);
             }
         } catch (\Throwable $e) {
@@ -139,12 +139,12 @@ class SpecialistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Specialist::find($id);
+        $data = SubSpecialist::find($id);
 
         $validator = Validator::make([
             'name'      => $request->name,
         ], [
-            'name'      => 'required|max:255|min:3|unique:specialists,name,' . $data->id . ',id,deleted_at,NULL'
+            'name'      => 'required|max:255|min:3|unique:sub_specialists,name,' . $data->id . ',id,deleted_at,NULL'
         ]);
 
         if ($validator->fails()) {
@@ -162,7 +162,7 @@ class SpecialistController extends Controller
                     DB::commit();
                     return response()->json([
                         'status'  => 200,
-                        'message' => 'Specialist name has been updated',
+                        'message' => 'Sub Specialist has been updated',
                     ], 200);
                 } catch (\Throwable $th) {
                     DB::rollBack();
@@ -187,7 +187,7 @@ class SpecialistController extends Controller
     {
         try {
             $id = Crypt::decryptString($id);
-            $data = Specialist::find($id);
+            $data = SubSpecialist::find($id);
 
             if (!$data) {
                 return response()->json([
@@ -204,7 +204,7 @@ class SpecialistController extends Controller
 
             return response()->json([
                 'status'  => 200,
-                'message' => "Specialist name has been deleted",
+                'message' => "Sub Specialist has been deleted",
             ], 200);
         } catch (\Throwable $e) {
             return response()->json([

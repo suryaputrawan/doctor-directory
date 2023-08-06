@@ -25,6 +25,12 @@
                     <span class="link-title">Specialists</span>
                 </a>
             </li>
+            <li class="nav-item {{ active_class(['admin/master/sub-specialists', 'admin/master/sub-specialists/*']) }}">
+                <a href="{{ route('admin.sub-specialists.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="user"></i>
+                    <span class="link-title">Sub Specialists</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
