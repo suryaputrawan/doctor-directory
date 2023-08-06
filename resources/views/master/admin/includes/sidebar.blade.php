@@ -19,6 +19,12 @@
                 </a>
             </li>
             <li class="nav-item nav-category">Master</li>
+            <li class="nav-item {{ active_class(['admin/master/specialists', 'admin/master/specialists/*']) }}">
+                <a href="{{ route('admin.specialists.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="user"></i>
+                    <span class="link-title">Specialists</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

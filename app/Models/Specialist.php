@@ -6,14 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Location extends Model
+class Specialist extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['name'];
-
-    function room()
-    {
-        return $this->hasMany(Room::class);
-    }
 }

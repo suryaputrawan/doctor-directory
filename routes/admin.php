@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SpecialistController;
 
 Route::get('/', function () {
     return redirect()->route('admin.dashboard');
@@ -13,7 +14,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::group(['prefix' => 'master'], function () {
-        //
+        Route::resource('specialists', SpecialistController::class);
     });
 
     Route::group(['prefix' => 'profile'], function () {
