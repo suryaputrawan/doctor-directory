@@ -31,6 +31,12 @@
                     <span class="link-title">Sub Specialists</span>
                 </a>
             </li>
+            <li class="nav-item {{ active_class(['admin/master/sites', 'admin/master/sites/*']) }}">
+                <a href="{{ route('admin.sites.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="home"></i>
+                    <span class="link-title">Sites</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

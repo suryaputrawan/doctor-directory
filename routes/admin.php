@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SiteController;
 use App\Http\Controllers\Admin\SpecialistController;
 use App\Http\Controllers\Admin\SubSpecialistController;
 
@@ -17,6 +18,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'master'], function () {
         Route::resource('specialists', SpecialistController::class);
         Route::resource('sub-specialists', SubSpecialistController::class);
+        Route::resource('sites', SiteController::class);
     });
 
     Route::group(['prefix' => 'profile'], function () {
