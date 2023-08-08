@@ -37,6 +37,12 @@
                     <span class="link-title">Sites</span>
                 </a>
             </li>
+            <li class="nav-item {{ active_class(['admin/master/doctors', 'admin/master/doctors/*']) }}">
+                <a href="{{ route('admin.doctors.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="user"></i>
+                    <span class="link-title">Doctors</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
